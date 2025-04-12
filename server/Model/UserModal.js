@@ -21,10 +21,9 @@ const userSchema = new mongoose.Schema({
     enum: ['normal', 'manager', 'admin'],
     default: 'normal'
   },
-    // Account Status
     isActive: {
       type: Boolean,
-      default: false // Requires admin approval
+      default: false 
     },
   
   organizationalUnits: [

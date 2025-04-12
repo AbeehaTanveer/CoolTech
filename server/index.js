@@ -16,7 +16,7 @@ const PORT = 1010;
 
 // Api Route
 app.get("/", (req, res) => {
-  res.send("You are on the correct PORT");
+  res.send("Your Port is running");
   console.log("Hello World");
 });
 
@@ -31,7 +31,7 @@ app.use("/credential",routerCredential)
 
 const startServer = async () => {
   try {
-    await Database(); // Ensure database is connected before starting the server
+    await Database(); 
     app.listen(PORT, () => {
       console.log(`Server is running on PORT ${PORT}`);
     });

@@ -6,9 +6,6 @@ import Layout from "./Pages/Layout.jsx";
 import Dashboard from "./components/Dashboard.jsx";
 import Username from "./Pages/Username.jsx";
 import Login from "./Pages/Login.jsx";
-import TransactionsTable from "./components/TransactionsTable.jsx";
-import { Provider } from "react-redux";
-import store from "../Redux/Store.js";
 import RegisterPage from "./Pages/Register.jsx";
 import ManageUser from "./components/ManageUser.jsx";
 import Credential from "./components/Credential.jsx";
@@ -22,7 +19,7 @@ const ProtectedRoute = ({ children }) => {
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <Provider store={store}>
+  
       <BrowserRouter>
         <Routes>
           {/* Public Routes */}
@@ -41,13 +38,12 @@ createRoot(document.getElementById("root")).render(
           >
             <Route index element={<Username />} />
             <Route path="dashboard" element={<Dashboard />} />
-            <Route path="transaction" element={<TransactionsTable />} />
             <Route path="users" element={<ManageUser />} />
             <Route path="credential" element={<Credential />} />
          
           </Route>
         </Routes>
       </BrowserRouter>
-    </Provider>
+
   </StrictMode>
 );

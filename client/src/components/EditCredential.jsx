@@ -1,43 +1,39 @@
-
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Modal, Button, Form, Alert, Spinner } from 'react-bootstrap';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Modal, Button, Form, Alert, Spinner } from "react-bootstrap";
 
 const EditCredentialModal = ({ credential, onClose, onUpdateSuccess }) => {
   const [formData, setFormData] = useState({
-    serviceName: '',
-
-    username: '',
-    password: '',
-
+    serviceName: "",
+    username: "",
+    password: "",
   });
   const [loading, setLoading] = useState(false);
-  const [errorMsg, setErrorMsg] = useState('');
+  const [errorMsg, setErrorMsg] = useState("");
   const [show, setShow] = useState(true);
 
-  // Initialize form with credential data
   useEffect(() => {
     if (credential) {
       setFormData({
         serviceName: credential.serviceName,
-        url: credential.url || '',
-        division: credential.division || '',
+        url: credential.url || "",
+        division: credential.division || "",
         username: credential.username,
         password: credential.password,
-        notes: credential.notes || ''
+        notes: credential.notes || "",
       });
     }
   }, [credential]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setErrorMsg('');
+    setErrorMsg("");
 
     try {
       const response = await axios.put(
@@ -45,15 +41,15 @@ const EditCredentialModal = ({ credential, onClose, onUpdateSuccess }) => {
         formData,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
-      
+
       onUpdateSuccess(response.data.credential);
       handleClose();
     } catch (err) {
-      setErrorMsg(err.response?.data?.message || 'Failed to update credential');
+      setErrorMsg(err.response?.data?.message || "Failed to update credential");
     } finally {
       setLoading(false);
     }
@@ -83,10 +79,6 @@ const EditCredentialModal = ({ credential, onClose, onUpdateSuccess }) => {
             />
           </Form.Group>
 
-   
-
-     
-
           <Form.Group className="mb-3">
             <Form.Label>Username/Email</Form.Label>
             <Form.Control
@@ -107,8 +99,6 @@ const EditCredentialModal = ({ credential, onClose, onUpdateSuccess }) => {
               required
             />
           </Form.Group>
-
-       
         </Modal.Body>
 
         <Modal.Footer>
@@ -116,7 +106,11 @@ const EditCredentialModal = ({ credential, onClose, onUpdateSuccess }) => {
             Cancel
           </Button>
           <Button variant="primary" type="submit" disabled={loading}>
-            {loading ? <Spinner size="sm" animation="border" /> : 'Update Credential'}
+            {loading ? (
+              <Spinner size="sm" animation="border" />
+            ) : (
+              "Update Credential"
+            )}
           </Button>
         </Modal.Footer>
       </Form>

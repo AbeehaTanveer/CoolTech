@@ -1,4 +1,3 @@
-// models/Credential.js
 const mongoose =require("mongoose")
 
 const credentialSchema = new mongoose.Schema({
@@ -15,7 +14,6 @@ const credentialSchema = new mongoose.Schema({
     required: true,
   },
   user: {
-    // To associate the credential with a user
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,

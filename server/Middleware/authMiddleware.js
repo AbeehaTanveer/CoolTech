@@ -9,7 +9,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 const authMiddleware = async (req, res, next) => {
   const authHeader = req.headers.authorization;
-  console.log("Auth Header:", authHeader); // Debug
+  console.log("Auth Header:", authHeader);
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     return res.status(401).json({ message: 'Unauthorized - No token provided' });
@@ -19,7 +19,7 @@ const authMiddleware = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
-    console.log("Decoded JWT:", decoded); // Debug
+    console.log("Decoded JWT:", decoded);
 
     const user = await User.findById(decoded.userId).select('-password');
     if (!user) {
@@ -29,7 +29,7 @@ const authMiddleware = async (req, res, next) => {
     req.user = user; 
     next();
   } catch (err) {
-    console.error("JWT verification failed:", err.message); // Debug
+    console.error("JWT verification failed:", err.message);
     return res.status(403).json({ message: 'Invalid token' });
   }
 };

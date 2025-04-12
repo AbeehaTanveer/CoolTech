@@ -18,10 +18,10 @@ const Credential = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('userId');
-    localStorage.removeItem('fullName');
-    navigate('/login');
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("fullName");
+    navigate("/login");
   };
 
   useEffect(() => {
@@ -40,11 +40,10 @@ const Credential = () => {
         );
 
         const user = userRes.data.user;
-        setUser(user); // Sets orgUnits & divisions too
+        setUser(user);
 
         let credsRes;
 
-        // Step 2: Admin gets ALL credentials, others get theirs only
         if (user.roles === "admin") {
           credsRes = await axios.get(`http://localhost:1010/credential/admin`, {
             headers: {
@@ -106,27 +105,28 @@ const Credential = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100 p-8">
-        
-        <div className="position-fixed bottom-0 end-0 m-3">
-  <button onClick={handleLogout}
-   className="btn btn-danger rounded-circle p-3 shadow">
-    <i className="bi bi-box-arrow-right fs-4"></i>
-  </button>
-</div>
+      <div className="position-fixed bottom-0 end-0 m-3">
+        <button
+          onClick={handleLogout}
+          className="btn btn-danger rounded-circle p-3 shadow"
+        >
+          <i className="bi bi-box-arrow-right fs-4"></i>
+        </button>
+      </div>
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">
-  👋 Welcome, {fullName}{" "}
-  {user?.roles === "manager"
-    ? "(Manager)"
-    : user?.roles === "admin"
-    ? "(Admin)"
-    : ""}
-</h1>
+          <h1 className="text-3xl font-bold mb-2">
+            👋 Welcome, {fullName}{" "}
+            {user?.roles === "manager"
+              ? "(Manager)"
+              : user?.roles === "admin"
+              ? "(Admin)"
+              : ""}
+          </h1>
           <div className="flex space-x-4 text-gray-400">
             {user?.roles === "admin" ? (
-              "" // Or null, if you truly want nothing to render
+              ""
             ) : (
               <>
                 <p>
@@ -200,7 +200,7 @@ const Credential = () => {
                             user?.roles === "admin") && (
                             <button
                               onClick={() => {
-                                setSelectedCredential(credential); // pass current credential
+                                setSelectedCredential(credential);
                                 setShowEditModal(true);
                               }}
                               className="text-yellow-400 hover:text-yellow-300"
@@ -213,7 +213,6 @@ const Credential = () => {
                               credential={selectedCredential}
                               onClose={() => setShowEditModal(false)}
                               onUpdateSuccess={(updatedCred) => {
-                                // Optionally update local state after edit
                                 const updatedList = credentials.map((cred) =>
                                   cred._id === updatedCred._id
                                     ? updatedCred
